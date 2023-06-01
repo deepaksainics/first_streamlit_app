@@ -31,3 +31,16 @@ fruityvice_response = requests.get("https://fruityvice.com/api/fruit/watermelon"
 fruityvice_normalized = pd.json_normalize(fruityvice_response.json())
 # Output the table
 streamlit.dataframe(fruityvice_normalized)
+
+# New section to display fruityvice api response 
+streamlit.header('Fruityvice Fruit Advice')
+
+# Fruityvice Advice
+fruit_choice = streamlit.text_input('What fruit would you like information about?','Kiwi')
+streamlit.write('The user entered ', fruit_choice)
+
+fruityvice_response_advice = requests.get("https://fruityvice.com/api/fruit/" + fruit_choice)
+# Normalizing the json response for Advice fruit
+fruityvice_normalized_advice = pd.json_normalize(fruityvice_response_advice.json())
+# Output the table
+streamlit.dataframe(fruityvice_normalized_advice)
