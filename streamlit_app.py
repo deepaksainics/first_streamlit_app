@@ -45,3 +45,10 @@ fruityvice_response_advice = requests.get("https://fruityvice.com/api/fruit/" + 
 fruityvice_normalized_advice = pd.json_normalize(fruityvice_response_advice.json())
 # Output the table
 streamlit.dataframe(fruityvice_normalized_advice)
+
+my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
+my_cur = my_cnx.cursor()
+my_cur.execute("SELECT CURRENT_USER(), CURRENT_ACCOUNT(), CURRENT_REGION()")
+my_data_row = my_cur.fetchone()
+streamlit.text("Hello from Snowflake:")
+streamlit.text(my_data_row)
